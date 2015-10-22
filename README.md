@@ -29,3 +29,6 @@ Now you and your friends can manage your projects Kanban style. KanBan all the t
 2. User will be able to reorder lists via drag-n-drop.
 3. User will be able to move and reorder cards via drag-n-drop.
 4. Offline support.(Requires AngularJS)
+5. Image upload
+6. Attaching images to cards
+7. Card search

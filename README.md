@@ -22,7 +22,7 @@ Now you and your friends can manage your projects Kanban style. KanBan all the t
 11. User will be able to cast a "vote" on card.
 12. Brello will be responsive.
 
-## Advanced Criteria
+## Advanced Acceptance Criteria
 
 1. Implement Multi-Factor Authentication
 2. User will be able to reorder lists via drag-n-drop.

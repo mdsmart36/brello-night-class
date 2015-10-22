@@ -10,8 +10,7 @@ Now you and your friends can manage your projects Kanban style. KanBan all the t
 
 1. Users will be able to register for Brello.
 2. User will be able to rename their own board at will.
-2. Every user will be equiped a board on registration.
-3. Boards will consist of draggable lists with editable titles.
+3. Every user will be equiped a board on registration.
 4. User will be able to add an unlimited number of lists on their board.
 5. User will be able to create cards with descriptions and titles.
 6. User will be able to add an unlimited number of cards on any given list.
@@ -21,6 +20,8 @@ Now you and your friends can manage your projects Kanban style. KanBan all the t
 10. User will be able to reorder cards in a list **as well as** move cards between lists at will.
 11. User will be able to cast a "vote" on card.
 12. Brello will be responsive.
+13. User will be able to copy a card from one list to another.
+14. User will be able to assign colored labels to a card.
 
 ## Advanced Acceptance Criteria
 

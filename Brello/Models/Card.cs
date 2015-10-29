@@ -12,9 +12,9 @@ namespace Brello.Models
         public string Description { get; set; }
         public Color BorderColor { get; set; }
         // Assigned To
-        public ICollection<ApplicationUser> Assignees { get; set; }
+        public virtual ICollection<ApplicationUser> Assignees { get; set; }
         // Vote mechanism
-        public ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
          
     }
 }

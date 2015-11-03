@@ -216,7 +216,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardContext.cs" />
-    <Compile Include="Models\BoardService.cs" />
+    <Compile Include="Models\BoardRepository.cs" />
     <Compile Include="Models\BrelloList.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Card.cs" />

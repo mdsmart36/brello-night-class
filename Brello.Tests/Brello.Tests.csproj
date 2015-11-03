@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Models\ColorTests.cs" />
     <Compile Include="Models\CardTests.cs" />
-    <Compile Include="Models\BoardServiceTests.cs" />
+    <Compile Include="Models\BoardRepositoryTests.cs" />
     <Compile Include="Models\CarTests.cs" />
     <Compile Include="Models\BoardTests.cs" />
     <Compile Include="Models\BrelloListTests.cs" />

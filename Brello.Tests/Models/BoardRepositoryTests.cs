@@ -121,9 +121,7 @@ namespace Brello.Tests.Models
         {
             /* Begin Arrange */
             var mock_boards = new Mock<DbSet<Board>>();
-
             var my_list = new List<Board>();
-
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);

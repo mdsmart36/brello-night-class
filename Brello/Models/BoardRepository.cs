@@ -25,9 +25,10 @@ namespace Brello.Models
         }
 
         // This is an example of overloading a method
-        public List<BrelloList> GetAllLists(Board _board)
+        public List<BrelloList> GetAllLists(int _board_id)
         {
-            return null;
+            var query = from b in context.Boards where b.BoardId == _board_id select b.Lists;
+            return query.Single<List<BrelloList>>();
         }
 
         public Board CreateBoard(string title, ApplicationUser owner)

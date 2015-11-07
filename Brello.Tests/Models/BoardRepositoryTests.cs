@@ -131,6 +131,10 @@ namespace Brello.Tests.Models
             mock_boards.As<IQueryable<Board>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Expression).Returns(data.Expression);
 
+            // This allows BoardRepository to call Boards.Add and have it update the my_list instance and Enumerator
+            // Connect DbSet.Add to List.Add so they work together
+            mock_boards.Setup(m => m.Add(It.IsAny<Board>())).Callback((Board b) => my_list.Add(b));
+
             mock_context.Setup(m => m.Boards).Returns(mock_boards.Object);
 
             BoardRepository board_repo = new BoardRepository(mock_context.Object);
@@ -146,7 +150,7 @@ namespace Brello.Tests.Models
             Assert.IsNotNull(added_board);
             mock_boards.Verify(m => m.Add(It.IsAny<Board>()));
             mock_context.Verify(x => x.SaveChanges(), Times.Once());
-            Assert.AreEqual(1, mock_context.Object.Boards.Count());
+            Assert.AreEqual(1, board_repo.GetBoardCount());
             /* End Assert */
         }
 

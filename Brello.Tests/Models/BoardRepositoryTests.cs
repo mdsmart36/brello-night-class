@@ -108,10 +108,11 @@ namespace Brello.Tests.Models
 
             /* Begin Act */
             my_list.Add(new Board { Title = "My Awesome Board" });
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
             /* End Act */
 
             /* Begin Assert */
-            Assert.AreEqual(1, actual);
+            Assert.AreEqual(1, board_repository.GetBoardCount());
             /* End Assert */
         }
 

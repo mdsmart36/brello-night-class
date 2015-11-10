@@ -86,10 +86,28 @@ namespace Brello.Tests.Models
         [TestMethod]
         public void BoardRepositoryEnsureThereAreZeroLists()
         {
+            /* Begin Arrange */
+            var mock_boards = new Mock<DbSet<Board>>();
+            ApplicationUser user1 = new ApplicationUser();
+            ApplicationUser user2 = new ApplicationUser();
+            var my_list = new List<Board> {
+                new Board { Title = "Tim's Board", Owner = user1},
+                new Board {Title = "Sally's Board", Owner = user2 }
+            }; // So I can use later
+            var data = my_list.AsQueryable();
+
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Expression).Returns(data.Expression);
+
+            mock_context.Setup(m => m.Boards).Returns(mock_boards.Object);
             BoardRepository board_repo = new BoardRepository(mock_context.Object);
-            
+            /* End Arrange */
+
+
             int expected = 0;
-            int actual = board_repo.GetAllLists().Count;
+            int actual = board_repo.GetListCount();
             Assert.AreEqual(expected, actual);
             
         }

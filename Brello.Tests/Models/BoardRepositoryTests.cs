@@ -13,17 +13,28 @@ namespace Brello.Tests.Models
     {
 
         private Mock<BoardContext> mock_context;
+        private Mock<DbSet<Board>> mock_boards;
+        private List<Board> my_list;
+        private ApplicationUser owner, user1, user2;
 
         [TestInitialize]
         public void Initialize()
         {
             mock_context = new Mock<BoardContext>();
+            mock_boards = new Mock<DbSet<Board>>();
+            my_list = new List<Board>();
+            owner = new ApplicationUser();
+            user1 = new ApplicationUser();
+            user2 = new ApplicationUser();
+
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             mock_context = null;
+            mock_boards = null;
+            my_list = null;
         }
 
         [TestMethod]
@@ -50,18 +61,14 @@ namespace Brello.Tests.Models
         public void BoardRepositoryEnsureICanGetAllLists()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-            ApplicationUser user1 = new ApplicationUser();
-            ApplicationUser user2 = new ApplicationUser();
+            
             var brello_lists = new List<BrelloList>
             {
                 new BrelloList { Title = "My List", BrelloListId = 1}
             };
 
-            var my_list = new List<Board> {
-                new Board { Title = "Tim's Board", Owner = user1, BoardId = 1, Lists = brello_lists},
-                new Board { Title = "Sally's Board", Owner = user2, BoardId = 2, Lists = brello_lists}
-            }; // So I can use later
+            my_list.Add(new Board { Title = "Tim's Board", Owner = user1, BoardId = 1, Lists = brello_lists });
+            my_list.Add(new Board { Title = "Sally's Board", Owner = user2, BoardId = 2, Lists = brello_lists });
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
@@ -87,13 +94,9 @@ namespace Brello.Tests.Models
         public void BoardRepositoryEnsureThereAreZeroLists()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-            ApplicationUser user1 = new ApplicationUser();
-            ApplicationUser user2 = new ApplicationUser();
-            var my_list = new List<Board> {
-                new Board { Title = "Tim's Board", Owner = user1},
-                new Board {Title = "Sally's Board", Owner = user2 }
-            }; // So I can use later
+            my_list.Add(new Board { Title = "Tim's Board", Owner = user1 });
+            my_list.Add(new Board { Title = "Sally's Board", Owner = user2 });
+
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
@@ -119,11 +122,8 @@ namespace Brello.Tests.Models
         public void BoardRepositoryEnsureABoardHasZeroLists()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-            ApplicationUser user1 = new ApplicationUser();
-            var my_list = new List<Board> {
-                new Board { Title = "Tim's Board", Owner = user1, BoardId = 1}
-            }; // So I can use later
+            my_list.Add(new Board { Title = "Tim's Board", Owner = user1, BoardId = 1 });
+
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
@@ -143,13 +143,8 @@ namespace Brello.Tests.Models
         public void BoardRepositoryCanGetABoard()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-            ApplicationUser user1 = new ApplicationUser();
-            ApplicationUser user2 = new ApplicationUser();
-            var my_list = new List<Board> {
-                new Board { Title = "Tim's Board", Owner = user1},
-                new Board {Title = "Sally's Board", Owner = user2 }
-            }; // So I can use later
+            my_list.Add(new Board { Title = "Tim's Board", Owner = user1 });
+            my_list.Add(new Board { Title = "Sally's Board", Owner = user2 });
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
@@ -176,9 +171,6 @@ namespace Brello.Tests.Models
         public void BoardRepositoryCanGetBoardCount()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-
-            var my_list = new List<Board>(); // So I can use later
 
             var data = my_list.AsQueryable();
 
@@ -217,8 +209,6 @@ namespace Brello.Tests.Models
         public void BoardRepositoryCanCreateBoard()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-            var my_list = new List<Board>();
             var data = my_list.AsQueryable();
 
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
@@ -234,7 +224,6 @@ namespace Brello.Tests.Models
 
             BoardRepository board_repo = new BoardRepository(mock_context.Object);
             string title = "My Awesome Board";
-            ApplicationUser owner = new ApplicationUser();
             /* End Arrange */
 
             /* Begin Act */
@@ -253,20 +242,16 @@ namespace Brello.Tests.Models
         public void BoardRepositoryEnsureICanGetAllBoards()
         {
             /* Begin Arrange */
-            var mock_boards = new Mock<DbSet<Board>>();
-
-            ApplicationUser owner = new ApplicationUser();
 
             // 1. Your data must be Queryable
             // 2. Mocks can only cast to an Interface (e.g. IQueryable, IDbSet, etc).
             // 3. You must ensure Provider, GetEnumerator(), ElementType, and Expression are defined
             //    with your collection class (the container class that holds your data).
-            
-            var data = new List<Board> {
-                new Board { Title = "My Awesome Board", Owner = owner },
-                new Board { Title = "My Other Awesome Board", Owner = owner }
-            }.AsQueryable();
-            
+
+            my_list.Add(new Board { Title = "Tim's Board", Owner = owner });
+            my_list.Add(new Board { Title = "Sally's Board", Owner = owner });
+            var data = my_list.AsQueryable();
+
             mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
             mock_boards.As<IQueryable<Board>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
             mock_boards.As<IQueryable<Board>>().Setup(m => m.ElementType).Returns(data.ElementType);

@@ -21,7 +21,8 @@ namespace Brello.Models
 
         public List<BrelloList> GetAllLists()
         {
-            return null;
+            var query = from l in context.Boards select l;
+            return query.SelectMany(board => board.Lists).ToList();
         }
 
         // This is an example of overloading a method

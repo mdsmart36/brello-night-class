@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace Brello
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {

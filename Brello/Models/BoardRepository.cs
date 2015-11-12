@@ -81,5 +81,47 @@ namespace Brello.Models
         {
             return GetAllLists().Count;
         }
+
+        public Board UpdateBoardTitle(string title, ApplicationUser owner, string newTitle)
+        {
+            // find the board with title and owner
+            var query = context.Boards.Where(b => b.Title == title).Where(b => b.Owner == owner);
+            var result = query.First();
+
+            // assign newTitle to title and return board
+            result.Title = newTitle;
+            context.SaveChanges();
+            return result;
+        }
+
+        public Board UpdateBoardOwner(string title, ApplicationUser owner, ApplicationUser newOwner)
+        {
+            // find the board with title and owner
+            var query = context.Boards.Where(b => b.Title == title).Where(b => b.Owner == owner);
+            var result = query.First();
+
+            // assign newTitle to title and return board
+            result.Owner = newOwner;
+            context.SaveChanges();            
+            return result;
+        }
+
+        public Board DeleteBoard(int boardId)
+        {
+            // find the board using the unique BoardId
+            var query = from b in context.Boards where b.BoardId == boardId select b;
+            Board found_board;
+            try
+            {            
+                found_board = query.First();
+                context.Boards.Remove(found_board);
+                context.SaveChanges();
+                return found_board;
+            }
+            catch (Exception)
+            {
+                throw;
+            }            
+        }
     }
 }

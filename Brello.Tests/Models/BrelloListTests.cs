@@ -28,5 +28,17 @@ namespace Brello.Tests.Models
             Assert.AreEqual("My List", list.Title);
             Assert.AreEqual(1, list.Cards.Count);
         }
+
+        [TestMethod]
+        public void BrelloListEnsureICanUpdateList()
+        {            
+            
+        }
+
+        [TestMethod]
+        public void BrelloListEnsureICanDeleteList()
+        {
+
+        }
     }
 }

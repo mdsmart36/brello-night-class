@@ -11,7 +11,8 @@ namespace Brello.Controllers
         // GET: Board
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Message = "My Boards";
+            return View("Index");
         }
 
         // GET: Board/Details/5

@@ -16,6 +16,7 @@ namespace Brello.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            // ViewBag['Message'] = "something";
 
             return View();
         }

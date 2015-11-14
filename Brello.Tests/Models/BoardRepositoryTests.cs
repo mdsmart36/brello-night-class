@@ -355,7 +355,7 @@ namespace Brello.Tests.Models
             Board board2 = board_repo.CreateBoard(title1, user1);
             Board board3 = board_repo.CreateBoard(title1, user2);
 
-            Board deleted_board = board_repo.DeleteBoard(board1.BoardId);
+            Board deleted_board = board_repo.DeleteBoard(board1);
 
             // Assert
             Assert.IsNotNull(deleted_board);
@@ -368,7 +368,7 @@ namespace Brello.Tests.Models
 
         [ExpectedException(typeof(InvalidOperationException))]
         [TestMethod]
-        public void BoardRepositoryDeleteBoardThatDoesntExist()
+        public void BoardRepositoryTestDeleteBoardThatHasntBeenAddedToContext()
         {
             // Arrange
             var data = my_list.AsQueryable();
@@ -390,16 +390,90 @@ namespace Brello.Tests.Models
             Board board1 = board_repo.CreateBoard(title1, owner);
             Board board2 = board_repo.CreateBoard(title1, user1);
             Board board3 = board_repo.CreateBoard(title1, user2);
+            Board board4 = new Board();
 
-            Board deleted_board = board_repo.DeleteBoard(-1);
+            Board deleted_board = board_repo.DeleteBoard(board4);
 
             // Assert
-            //Assert.IsNotNull(deleted_board);
-            //mock_boards.Verify(m => m.Remove(It.IsAny<Board>()));
-            //mock_context.Verify(x => x.SaveChanges(), Times.Exactly(4));
-            //Assert.AreEqual(0, board_repo.GetBoards(owner).Count());
-            //Assert.AreEqual(1, board_repo.GetBoards(user1).Count());
-            //Assert.AreEqual(2, board_repo.GetBoardCount());
+            
         }
+
+
+        [TestMethod]
+        public void BoardRepositoryEnsureICanUpdateListTitle()
+        {
+            // Arrange
+            var data = my_list.AsQueryable();
+
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Expression).Returns(data.Expression);
+
+            // This allows BoardRepository to call Boards.Remove and have it update the my_list instance and Enumerator
+            // Connect DbSet.Remove to List.Remove so they work together
+            mock_boards.Setup(m => m.Add(It.IsAny<Board>())).Callback((Board b) => my_list.Add(b));
+            //mock_boards.Setup(m => m.Remove(It.IsAny<Board>())).Callback((Board b) => my_list.Remove(b));
+            mock_context.Setup(m => m.Boards).Returns(mock_boards.Object);
+
+            BoardRepository board_repo = new BoardRepository(mock_context.Object);
+            string title1 = "My Awesome Board";
+            
+            // Act
+            Board board = new Board() { Title = title1, Owner = owner, BoardId = 1 };
+            my_list.Add(board);            
+
+            Card card1 = new Card() { Title = "my first card" };
+            List<Card> cards = new List<Card>();
+            cards.Add(card1);
+
+            BrelloList list = new BrelloList() { Title = "my first list", Cards = cards, BrelloListId = 6 };
+            string newListTitle = "my second list";
+            board_repo.AddList(board.BoardId, list);
+            board_repo.UpdateListTitle(board.BoardId, list.BrelloListId, newListTitle);            
+
+            // Assert
+            Assert.AreEqual(newListTitle, list.Title);
+        }
+
+        [TestMethod]
+        public void BoardRepositoryEnsureICanDeleteList()
+        {
+            // Arrange
+            var data = my_list.AsQueryable();
+
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Provider).Returns(data.Provider);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mock_boards.As<IQueryable<Board>>().Setup(m => m.Expression).Returns(data.Expression);
+
+            // This allows BoardRepository to call Boards.Remove and have it update the my_list instance and Enumerator
+            // Connect DbSet.Remove to List.Remove so they work together
+            mock_boards.Setup(m => m.Add(It.IsAny<Board>())).Callback((Board b) => my_list.Add(b));
+            //mock_boards.Setup(m => m.Remove(It.IsAny<Board>())).Callback((Board b) => my_list.Remove(b));
+            mock_context.Setup(m => m.Boards).Returns(mock_boards.Object);
+
+            BoardRepository board_repo = new BoardRepository(mock_context.Object);
+            string title1 = "My Awesome Board";
+
+            // Act
+            Board board = new Board() { Title = title1, Owner = owner, BoardId = 1 };
+            my_list.Add(board);
+
+            Card card1 = new Card() { Title = "my first card" };
+            List<Card> cards = new List<Card>();
+            cards.Add(card1);
+
+            BrelloList list = new BrelloList() { Title = "my first list", Cards = cards, BrelloListId = 6 };
+
+            // Assert
+            board_repo.AddList(board.BoardId, list);
+            Assert.AreEqual(1, board_repo.GetAllLists(board.BoardId).Count);
+
+            board_repo.DeleteList(board.BoardId, list);            
+            Assert.AreEqual(0, board_repo.GetAllLists(board.BoardId).Count);
+        }
+
+
     }
 }

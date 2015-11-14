@@ -106,10 +106,10 @@ namespace Brello.Models
             return result;
         }
 
-        public Board DeleteBoard(int boardId)
+        public Board DeleteBoard(Board board)
         {
             // find the board using the unique BoardId
-            var query = from b in context.Boards where b.BoardId == boardId select b;
+            var query = from b in context.Boards where b == board select b;
             Board found_board;
             try
             {            
@@ -122,6 +122,31 @@ namespace Brello.Models
             {
                 throw;
             }            
+        }
+
+        public void UpdateListTitle(int boardId, int listId, string newListTitle)
+        {
+            // search for the correct board
+            var query1 = from b in context.Boards where b.BoardId == boardId select b;
+            var found_board = query1.First();
+
+            // search for the correct list
+            var query2 = found_board.Lists.Where(l => l.BrelloListId == listId);            
+            var found_list = query2.First();
+
+            // udate the list title and save changes
+            found_list.Title = newListTitle;            
+            context.SaveChanges();
+        }
+
+        public void DeleteList(int boardId, BrelloList list)
+        {
+            // search for the correct board
+            var query1 = from b in context.Boards where b.BoardId == boardId select b;
+            var found_board = query1.First();
+            
+            found_board.Lists.Remove(list);
+            context.SaveChanges();
         }
     }
 }

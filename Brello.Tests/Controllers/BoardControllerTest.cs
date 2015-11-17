@@ -19,7 +19,7 @@ namespace Brello.Tests.Controllers
         public void Initialize()
         {
             mock_context = new Mock<BoardContext>();
-            mock_repository = new Mock<BoardRepository> { p}
+            mock_repository = new Mock<BoardRepository>(MockBehavior.Strict,mock_context.Object);
             owner = new ApplicationUser();
             user1 = new ApplicationUser();
             user2 = new ApplicationUser();
@@ -63,18 +63,18 @@ namespace Brello.Tests.Controllers
         public void BoardControllerEnsureListOfUserBoards()
         {
             // Arrange
-            List<Board> my_boards = new List<Board>
+            List<Board> data_store_boards = new List<Board>
             {
                 new Board {Title = "My Awesome Board", BoardId = 1, Owner = owner  },
                 new Board {Title = "My Grocery Board", BoardId = 2, Owner = owner  }
             };
             BoardController controller = new BoardController(mock_repository.Object);
-            mock_repository.Setup(r => r.GetAllBoards()).Returns(my_boards);
+            mock_repository.Setup(r => r.GetAllBoards()).Returns(data_store_boards);
             // Act
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            CollectionAssert.AreEqual(my_boards, result.ViewBag.Boards);
+            CollectionAssert.AreEqual(data_store_boards, result.ViewBag.Boards);
         }
     }
 }

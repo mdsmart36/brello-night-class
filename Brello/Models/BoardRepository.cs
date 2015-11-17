@@ -58,7 +58,7 @@ namespace Brello.Models
             return my_board;
         }
 
-        public List<Board> GetAllBoards()
+        public virtual List<Board> GetAllBoards()
         {
             return context.Boards.ToList();
         }

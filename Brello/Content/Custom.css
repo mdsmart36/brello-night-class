@@ -1,3 +1,64 @@
-﻿.brellolist {
+﻿html {
+    height: 100%;
+}
+
+#board {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-top:130px;
+    margin-bottom:130px;
+    height:80%;
+    background-color:#298fca;
+}
+
+.brellolist {
     width: 270px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #C2C2C2;
+    border-left: 1px solid #CFCFCF;
+    border-right: 1px solid #CFCFCF;
+    height:100%;
+}
+.brellolist-footer {
+    width: 270px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #C2C2C2;
+    border-bottom: 1px solid #CFCFCF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius:5px;
+    min-height:20px;
+}
+.brellolist-header {
+    width: 270px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #C2C2C2;
+    border-top: 1px solid #CFCFCF;
+    min-height:20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius:5px;
+}
+
+div.container-fluid {
+    overflow-x: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 90%;
+}
+
+.red {
+    border: solid 1px red;
+}
+
+.green {
+    border: solid 1px green;
+}
+
+ul.center {
+    padding: 0;
 }

@@ -23,11 +23,12 @@ namespace Brello.Controllers
         }
 
         // GET: Board
+        [Authorize]
         public ActionResult Index()
         {
 
             //ViewBag.Boards = repository.GetAllBoards();
-            ViewBag.Message = "My Boards";
+            ViewBag.Title = "My Boards";
 
             var things = new List<string>();
             things.Add("foo");

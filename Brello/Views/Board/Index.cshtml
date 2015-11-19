@@ -1,19 +1,164 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    
+﻿@model IEnumerable<string>
+
+@{
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>@ViewBag.Message</h1>
-    @using (Html.BeginForm("Create", "Board", FormMethod.Post, htmlAttributes: new { style = "display:block;", @class = "mystyle"}))
+    <h1 class="text-center">@ViewBag.Message</h1>
+<div class="row" style="display:inline-flex;">
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+
+
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+
+
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+
+
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+
+
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+
+
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+
+
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+
+
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+
+
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+
+
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+
+
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+    <div class="brellolist">
+        <ul style="">
+            @foreach (var item in Model)
+            {
+                <li style="list-style:none;" class="text-center"><a href="https://google.com">@item</a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+    @*@using (Html.BeginForm("Create", "Board", FormMethod.Post, htmlAttributes: new { style = "display:block;", @class = "mystyle"}))
     {
         @Html.AntiForgeryToken()
         @Html.TextBox("name")
-    }
+    }*@
 
-    <ul>
-       @foreach (var item in ViewBag.Things)
-       {
-           <li>@item</li>
-       }
-    </ul>
+    
         

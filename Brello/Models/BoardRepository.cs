@@ -9,6 +9,12 @@ namespace Brello.Models
     public class BoardRepository
     {
         private BoardContext context;
+
+        public BoardRepository()
+        {
+            context = new BoardContext();
+        }
+
         public BoardRepository(BoardContext _context) {
             context = _context;
         }

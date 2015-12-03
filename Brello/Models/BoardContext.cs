@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace Brello.Models
 {
-    public class BoardContext : DbContext
+    public class BoardContext : ApplicationDbContext
     {
         // Uses the connection string from the Web.config named "BoardContext"
         /*
@@ -19,5 +19,10 @@ namespace Brello.Models
         public virtual DbSet<Board> Boards { get; set; }
 
         // IQueryable, IList/List, ICollection/Collection, IDbSet/Dbset
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -23,6 +23,11 @@
     border-right: 1px solid #CFCFCF;
     height:100%;
 }
+
+.brellolist-wrapper > a {
+    color: white;
+}
+
 .brellolist-footer {
     width: 270px;
     margin-left: 10px;

@@ -30,8 +30,9 @@ namespace Brello.Controllers
         public ActionResult Index()
         {
             //UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>();
-            UserManager<ApplicationUser> manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ApplicationUser me = manager.FindById(User.Identity.GetUserId());
+            //UserManager<ApplicationUser> manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            string user_id = User.Identity.GetUserId();
+            ApplicationUser me = repository.Users.FirstOrDefault(u => u.Id == user_id);
 
             List<Board> boards = repository.GetBoards(me);
             Board my_board = null;

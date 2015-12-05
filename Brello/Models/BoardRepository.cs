@@ -10,6 +10,10 @@ namespace Brello.Models
     {
         private BoardContext context;
 
+        // DbContext is now ApplicationDbContext which gives use access to the
+        // table containing the users.
+        public IDbSet<ApplicationUser> Users { get { return context.Users; } }
+
         public BoardRepository()
         {
             context = new BoardContext();
@@ -79,8 +83,14 @@ namespace Brello.Models
 
         public List<Board> GetBoards(ApplicationUser user1)
         {
-            var query = from b in context.Boards where b.Owner == user1 select b;
+            var query = from b in context.Boards where b.Owner.Id == user1.Id select b;
             return query.ToList<Board>(); // Same as query.ToList();
+        }
+
+        public Board GetBoardById(int board_id)
+        {
+            var query = from b in context.Boards where b.BoardId == board_id select b;
+            return query.Single<Board>(); // Same as query.ToList();
         }
 
         public int GetListCount()

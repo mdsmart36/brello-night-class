@@ -64,6 +64,28 @@ namespace Brello.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult CreateList(FormCollection form)
+        {
+            string list_name = form.Get("list-name");
+            string board_id = form.Get("board-id");
+            Board current_board = repository.GetBoardById(int.Parse(board_id));
+            if (current_board != null)
+            {
+                repository.AddList(current_board.BoardId, new BrelloList { Title = list_name });
+            }
+            /*if (Request.IsAjaxRequest())
+            {
+
+            } else
+            {
+                return View("Index");
+            }*/
+
+            return RedirectToAction("Index");
+
+        }
+
         // POST: Board/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)

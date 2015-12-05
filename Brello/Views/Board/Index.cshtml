@@ -25,7 +25,7 @@
                         @using (Html.BeginForm("CreateList", "Board", FormMethod.Post, new { id = "list-form" }))
                         {
                             @Html.AntiForgeryToken()
-                            @Html.Hidden("board-id", ViewBag.CurrentBoardId as string)
+                            @Html.Hidden("board-id", ViewBag.CurrentBoardId as object)
                             <div class="modal-header">Add New List to @ViewBag.CurrentBoardId</div>
                             <div class="modal-body">@Html.TextBox("list-name")</div>
                             <div class="modal-footer"><input class="btn" type="submit" value="Submit"/></div>

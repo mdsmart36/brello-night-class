@@ -44,6 +44,7 @@ namespace Brello.Controllers
                 my_board = boards.First();
             }
             ViewBag.Title = my_board.Title;
+            ViewBag.CurrentBoardId = my_board.BoardId;
 
             //bool successful = repository.AddList(my_board.BoardId, new BrelloList { Title = "ToDo" });
 
@@ -74,13 +75,6 @@ namespace Brello.Controllers
             {
                 repository.AddList(current_board.BoardId, new BrelloList { Title = list_name });
             }
-            /*if (Request.IsAjaxRequest())
-            {
-
-            } else
-            {
-                return View("Index");
-            }*/
 
             return RedirectToAction("Index");
 

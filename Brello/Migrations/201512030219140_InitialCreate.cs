@@ -89,7 +89,7 @@ namespace Brello.Migrations
                     {
                         BrelloListId = c.Int(nullable: false, identity: true),
                         Title = c.String(),
-                        CreatedAt = c.DateTime(nullable: false),
+                        CreatedAt = c.DateTime(nullable: false, defaultValue: DateTime.Now),
                         Board_BoardId = c.Int(),
                     })
                 .PrimaryKey(t => t.BrelloListId)

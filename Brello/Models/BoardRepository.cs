@@ -32,6 +32,7 @@ namespace Brello.Models
             try
             {
                 found_board = query.Single<Board>();
+                _list.CreatedAt = DateTime.Now;
                 found_board.Lists.Add(_list);
                 context.SaveChanges();
             }

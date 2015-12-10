@@ -28,6 +28,11 @@ namespace Brello
                       "~/Content/bootstrap.css",
                       "~/Content/Custom.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-aria.js",
+                      "~/Scripts/app.js"));
         }
     }
 }
